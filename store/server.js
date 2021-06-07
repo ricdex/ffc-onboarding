@@ -22,6 +22,16 @@ export const actions = {
 
       },
 
+      async registrarInversionista ({ commit, dispatch } , {token , body}) {
+        
+        const response = await this.$axios.post(
+            `/inversionista/onboarding/${token}`,
+         body
+          )
+        return    response.data ;
+
+      },
+
       
 };
 
