@@ -31,7 +31,8 @@ export default {
   buildModules: [
     '@nuxtjs/tailwindcss',
     '@nuxtjs/axios',
-    '@nuxtjs/recaptcha'
+    '@nuxtjs/recaptcha',
+    '@nuxtjs/proxy'
  
   ],
 
