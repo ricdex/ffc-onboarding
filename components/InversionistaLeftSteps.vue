@@ -84,7 +84,6 @@
                     
                         <li>
                           <div class="relative pb-8">
-                            <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
                             <div class="relative flex space-x-3">
                               <div v-if="currentStep  == 2 ">
                                  <span class="h-8 w-8 rounded-full bg-teal-800 flex items-center justify-center ring-2 ring-white">
@@ -112,13 +111,13 @@
                               </div>
                               <div v-if="currentStep == 2" class="min-w-0 flex-1  flex justify-between space-x-4">
                                 <div>
-                                  <p class="text-lg font-bold justify-center text-gray-100">Datos empresa</p>
+                                  <p class="text-lg font-bold justify-center text-gray-100">Datos inversionista</p>
                                 </div>
                                
                               </div>
                               <div v-else class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
                                 <div>
-                                  <p class="text-sm text-gray-300">Datos empresa</p>
+                                  <p class="text-sm text-gray-300">Datos inversionista</p>
                                 </div>
                                
                               </div>
@@ -126,48 +125,6 @@
                           </div>
                         </li>
                     
-                        <li>
-                          <div class="relative pb-8">
-                            <div class="relative flex space-x-3">
-                              <div v-if="currentStep  == 3 ">
-                                <span class="h-8 w-8 rounded-full bg-teal-800 flex items-center justify-center ring-2 ring-white">
-                                 
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-                                  </svg>
-                                </span>
-                              </div>
-                              <div v-else-if="currentStep  < 3 ">
-                                <span class="h-8 w-8 rounded-full bg-teal-800 flex items-center justify-center ring-2 ring-white">
-                                  
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-                                  </svg>
-                                </span>
-                              </div>
-                              <div v-else>
-                                <span class="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center ring-2 ring-white">
-                                  
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-                                  </svg>
-                                </span>
-                              </div>
-                              <div v-if="currentStep  == 3 " class="min-w-0   flex-1 flex justify-between space-x-4">
-                                <div>
-                                  <p class="text-lg font-bold justify-center text-gray-100">Datos representante legal</p>
-                                </div>
-                                
-                              </div>
-                               <div v-else class="min-w-0 pt-1.5   flex-1 flex justify-between space-x-4">
-                                <div>
-                                  <p class="text-sm text-gray-300">Datos representante legal</p>
-                                </div>
-                                
-                              </div>
-                            </div>
-                          </div>
-                        </li>
                     
                         
                     

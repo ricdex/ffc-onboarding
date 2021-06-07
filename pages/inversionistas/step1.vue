@@ -23,30 +23,30 @@
                   
                                 <div class="col-span-6 ">
                                   <label for="correoUsuario" class="block text-sm font-medium text-gray-700">Correo electronico <span class="text-red-700">*</span> </label>
-                                  <input required type="text" v-on:keyup.enter="mailLogin" placeholder="Ingrese su correo y presione ENTER" v-model="empresa.correoUsuario" name="correoUsuario" id="correoUsuario" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                  <input required type="text" v-on:keyup.enter="mailLogin" placeholder="Ingrese su correo y presione ENTER" v-model="inversionista.correoUsuario" name="correoUsuario" id="correoUsuario" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                   <span class="text-xs text-red-700" v-text="mensajeCorreo"></span>
                                 </div>
                   
                                <div class="col-span-6 sm:col-span-3">
                                   <label for="nombreContacto" class="block text-sm font-medium text-gray-700">Nombres <span class="text-red-700">*</span></label>
-                                  <input type="text"   :disabled="isDisabled"   v-model="empresa.nombreContacto" name="nombreContacto" id="nombreContacto" autocomplete="nombre" class="disabled:opacity-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                  <input type="text"   :disabled="isDisabled"   v-model="inversionista.nombreContacto" name="nombreContacto" id="nombreContacto" autocomplete="nombre" class="disabled:opacity-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-3">
                                   <label for="apellidoContacto" class="block text-sm font-medium text-gray-700">Apellidos <span class="text-red-700">*</span></label>
-                                  <input type="text"  :disabled="isDisabled"  v-model="empresa.apellidoContacto" name="apellidoContacto" id="apellidoContacto" autocomplete="apellido" class="disabled:opacity-50  mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                  <input type="text"  :disabled="isDisabled"  v-model="inversionista.apellidoContacto" name="apellidoContacto" id="apellidoContacto" autocomplete="apellido" class="disabled:opacity-50  mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
 
                                 <div class="col-span-6 ">
                                   <label for="telefonoContacto" class="block text-sm font-medium text-gray-700">Telefono o celular <span class="text-red-700">*</span></label>
-                                  <input type="text"  :disabled="isDisabled"  v-model="empresa.telefonoContacto" name="telefonoContacto" id="telefonoContacto" autocomplete="telefonoContacto" class="disabled:opacity-50  mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                  <input type="text"  :disabled="isDisabled"  v-model="inversionista.telefonoContacto" name="telefonoContacto" id="telefonoContacto" autocomplete="telefonoContacto" class="disabled:opacity-50  mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
 
 
                                 <div class="col-span-6 sm:col-span-3">
                                   <label for="contrasenhaUsuario" class="block text-sm font-medium text-gray-700">Contrasenha <span class="text-red-700">*</span></label>
-                                  <input type="password" :disabled="isDisabled"  v-model="empresa.contrasenhaUsuario" name="contrasenhaUsuario" id="contrasenhaUsuario" autocomplete="contrasenhaUsuario" class="disabled:opacity-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                   <password  v-model="empresa.contrasenhaUsuario"  :toggle="true" :secureLength="7" :strength-meter-only="true"/>
+                                  <input type="password" :disabled="isDisabled"  v-model="inversionista.contrasenhaUsuario" name="contrasenhaUsuario" id="contrasenhaUsuario" autocomplete="contrasenhaUsuario" class="disabled:opacity-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                   <password  v-model="inversionista.contrasenhaUsuario"  :toggle="true" :secureLength="7" :strength-meter-only="true"/>
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-3">
@@ -85,7 +85,7 @@ export default {
     data: () => ({
         mensajeCorreo : '',
         mensajeError : '',
-        empresa : {},
+        inversionista : {},
         repetirContrasenha : ''
     }),
     computed: {
@@ -96,16 +96,16 @@ export default {
     mounted() {
      
       if (this.$store.state.authenticated) {
-        this.empresa  = JSON.parse ( JSON.stringify (this.$store.state.empresa) )  ;
+        this.inversionista  = JSON.parse ( JSON.stringify (this.$store.state.inversionista) )  ;
       }
     },
     methods: {
       async mailLogin() {
         
         this.mensajeError = '';
-        if (!this.empresa.correoUsuario) {
+        if (!this.inversionista.correoUsuario) {
           this.mensajeError  = 'El correo electrónico es obligatorio.';
-        } else if (!this.validEmail(this.empresa.correoUsuario)) {
+        } else if (!this.validEmail(this.inversionista.correoUsuario)) {
           this.mensajeError = 'El correo electrónico debe ser válido.';
         }
 
@@ -115,25 +115,25 @@ export default {
         }
 
         //verificacion de email
-        const usuario = await this.$store.dispatch('server/getusuario', this.empresa.correoUsuario)
+        const usuario = await this.$store.dispatch('server/getusuario', this.inversionista.correoUsuario)
         console.log(usuario);
         if(usuario !== '')
         {
-          this.mensajeCorreo = 'Su correo ' + this.empresa.correoUsuario + ' ya existe, porfavor use otro.';
-          this.empresa.correoUsuario = "";
+          this.mensajeCorreo = 'Su correo ' + this.inversionista.correoUsuario + ' ya existe, porfavor use otro.';
+          this.inversionista.correoUsuario = "";
           return false;
         }
 
         this.$store
           .dispatch('login', {
-            email: this.empresa.correoUsuario,
+            email: this.inversionista.correoUsuario,
           })
           .then(() => {
            
             this.mensajeCorreo = "Correo validado correctamente";
             this.$store
-              .dispatch('updateEmpresa', 
-            {empresa:  JSON.parse ( JSON.stringify (this.empresa) )  ,  step : 'step1'}
+              .dispatch('updateInversionista', 
+            {inversionista:  JSON.parse ( JSON.stringify (this.inversionista) )  ,  step : 'step1'}
           );
             
           })
@@ -148,19 +148,19 @@ export default {
       step2(){
 
         this.mensajeError = '';
-        if (!this.empresa.correoUsuario) {
+        if (!this.inversionista.correoUsuario) {
           this.mensajeError +=' El correo es obligatorio. ';
         }
-        if (!this.empresa.nombreContacto) {
+        if (!this.inversionista.nombreContacto) {
           this.mensajeError +=' El nombre es obligatorio. ';
         }
-        if (!this.empresa.apellidoContacto) {
+        if (!this.inversionista.apellidoContacto) {
           this.mensajeError +=' El apellido es obligatorio. ';
         }
-        if (!this.empresa.telefonoContacto) {
+        if (!this.inversionista.telefonoContacto) {
           this.mensajeError +=' El celular es obligatorio. ';
         }
-        if (this.empresa.contrasenhaUsuario !=  this.repetirContrasenha) {
+        if (this.inversionista.contrasenhaUsuario !=  this.repetirContrasenha) {
           this.mensajeError +=' Las contrasenhas deben coincidir. ';
         }
 
@@ -170,11 +170,11 @@ export default {
         }
 
          this.$store
-          .dispatch('updateEmpresa', 
-            {empresa:  JSON.parse ( JSON.stringify (this.empresa) )  ,  step : 'step2'}
+          .dispatch('updateInversionista', 
+            {inversionista:  JSON.parse ( JSON.stringify (this.inversionista) )  ,  step : 'step2'}
           ).then(() => {
           
-            this.$router.push('/empresas/step2')
+            this.$router.push('/inversionistas/step2')
           })
           .catch((err) => {
             this.mensajeError = "Hubo un error. Intentalo nuevamente o comunicate con el adminstrador de mapah.net";
