@@ -2,6 +2,15 @@
 
 
                 <div class="bg-white lg:min-w-0 lg:flex-1">
+
+
+                  <div v-if="showLoading" wire:loading class="fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden bg-gray-700 opacity-75 flex flex-col items-center justify-center">
+                    <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
+                    <h2 class="text-center text-white text-xl font-semibold">Procesando...</h2>
+                    <p class="w-1/3 pt-1 text-center text-white">Esto tomara unos segundos. No cierre la pagina porfavor.</p>
+                  </div>
+
+
                   <div class="h-full w-full  px-6 sm:px-6 lg:px-8 ">
                     <!-- Start main area-->
                     <div class="relative h-full w-full  sm:pt-10  items-center">
@@ -21,10 +30,17 @@
                               <div class="grid grid-cols-6 gap-6">
                                
                   
-                                <div class="col-span-6 ">
+                                <div class="col-span-4 sm:col-span-4">
                                   <label for="correoUsuario" class="block text-sm font-medium text-gray-700">Correo electronico <span class="text-red-700">*</span> </label>
-                                  <input required type="text" v-on:keyup.enter="mailLogin" placeholder="Ingrese su correo y presione ENTER" v-model="empresa.correoUsuario" name="correoUsuario" id="correoUsuario" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                  <input required type="text" v-on:keyup.enter="mailLogin" placeholder="Ingrese su correo y presione ENTER, o presione el boton de validar" v-model="empresa.correoUsuario" name="correoUsuario" id="correoUsuario" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                   <span class="text-xs text-red-700" v-text="mensajeCorreo"></span>
+                                </div>
+
+                                <div class="col-span-2 sm:col-span-2">
+                                   <label for="correoUsuario" class="block text-sm font-medium text-gray-700"> &nbsp;</label>
+                                  <button type="button"  @click="mailLogin"  class=" content-center  items-center w-full px-4 py-2 m-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    Validar correo
+                                  </button>
                                 </div>
                   
                                <div class="col-span-6 sm:col-span-3">
@@ -86,7 +102,8 @@ export default {
         mensajeCorreo : '',
         mensajeError : '',
         empresa : {},
-        repetirContrasenha : ''
+        repetirContrasenha : '',
+        showLoading : false
     }),
     computed: {
       isDisabled: function(){
@@ -95,12 +112,14 @@ export default {
     },
     mounted() {
      
+      this.showLoading = false;
       if (this.$store.state.authenticated) {
         this.empresa  = JSON.parse ( JSON.stringify (this.$store.state.empresa) )  ;
       }
     },
     methods: {
       async mailLogin() {
+        
         
         this.mensajeError = '';
         if (!this.empresa.correoUsuario) {
@@ -124,6 +143,7 @@ export default {
           return false;
         }
 
+        this.showLoading = true;
         this.$store
           .dispatch('login', {
             email: this.empresa.correoUsuario,
@@ -134,11 +154,14 @@ export default {
             this.$store
               .dispatch('updateEmpresa', 
             {empresa:  JSON.parse ( JSON.stringify (this.empresa) )  ,  step : 'step1'}
-          );
+            );
+
+            this.showLoading = false;
             
           })
           .catch((err) => {
             this.mensajeCorreo = "Hubo un error. Intentalo nuevamente o comunicate con el adminstrador de mapah.net";
+            this.showLoading = false;
           })
 
            
@@ -191,6 +214,31 @@ export default {
 </script>
 
 <style>
+.loader {
+	border-top-color: #3498db;
+	-webkit-animation: spinner 1.5s linear infinite;
+	animation: spinner 1.5s linear infinite;
+}
+
+@-webkit-keyframes spinner {
+	0% {
+		-webkit-transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+	}
+}
+
+@keyframes spinner {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+
 .container {
   margin: 0 auto;
   min-height: 100vh;
